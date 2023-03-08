@@ -38,17 +38,13 @@ suseInsertService sshd
 suseInsertService grub_config
 suseInsertService dracut_hostonly
 suseInsertService docker
+suseInsertService cloud-init-local
+suseInsertService cloud-init
+suseInsertService cloud-config
+suseInsertService cloud-final
 
 #======================================
 # Setup default target, multi-user
 #--------------------------------------
 baseSetRunlevel 3
 
-ansible-galaxy collection install community.general
-ansible-galaxy collection install community.docker
-ansible-galaxy collection install community.postgresql
-ansible-galaxy collection install community.rabbitmq
-
-git clone https://github.com/CDimonaco/trento-ansible.git 
-cd trento-ansible
-ansible-playbook -e web_postgres_password="pass" -e wanda_postgres_password="wanda" -e rabbitmq_password="trento" -e runner_url="http://localhost" -e grafana_api_url="http://host.docker.internal:3000/api" -e prometheus_url="http://localhost" -e web_admin_password="adminpassword" -e trento_server_name="trento.local trento.local:8080" playbook.yml
